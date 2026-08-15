@@ -1,0 +1,57 @@
+{
+	"name": "omp-nous-portal-provider",
+	"version": "0.1.0",
+	"description": "Nous Research Portal provider for oh-my-pi, with Portal OAuth and direct API-key authentication.",
+	"type": "module",
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"test": "node --test tests/*.test.mjs",
+		"test:compat": "node --test tests/compat/*.test.mjs",
+		"typecheck": "tsc --noEmit",
+		"check": "npm run typecheck && npm test"
+	},
+	"keywords": [
+		"omp",
+		"oh-my-pi",
+		"pi-package",
+		"pi-extension",
+		"pi-provider",
+		"pi-coding-agent",
+		"ai-provider",
+		"llm-provider",
+		"nous",
+		"hermes"
+	],
+	"license": "MIT",
+	"homepage": "https://github.com/TerrifiedBug/omp-nous-portal-provider#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/TerrifiedBug/omp-nous-portal-provider.git"
+	},
+	"bugs": {
+		"url": "https://github.com/TerrifiedBug/omp-nous-portal-provider/issues"
+	},
+	"files": [
+		"extensions",
+		"docs",
+		"README.md",
+		"LICENSE"
+	],
+	"pi": {
+		"extensions": [
+			"./extensions/nous-portal/index.ts"
+		]
+	},
+	"peerDependencies": {
+		"@oh-my-pi/pi-ai": "^17.3.4",
+		"@oh-my-pi/pi-coding-agent": "^17.3.4"
+	},
+	"devDependencies": {
+		"@oh-my-pi/pi-ai": "17.3.4",
+		"@oh-my-pi/pi-coding-agent": "17.3.4",
+		"@types/node": "^24.10.0",
+		"typescript": "^5.9.3"
+	}
+}
