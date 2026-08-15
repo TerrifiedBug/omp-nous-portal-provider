@@ -1,6 +1,6 @@
 {
 	"name": "omp-nous-portal-provider",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Nous Research Portal provider for oh-my-pi, with Portal OAuth and direct API-key authentication.",
 	"type": "module",
 	"engines": {

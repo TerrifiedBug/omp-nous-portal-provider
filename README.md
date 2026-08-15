@@ -66,8 +66,8 @@ See [`docs/testing.md`](docs/testing.md) for the required environment variables.
 Releases use version tags. Bump `package.json`, merge the change into `main`, then push a matching tag:
 
 ```sh
-git tag -a v0.1.1 -m "omp-nous-portal-provider 0.1.1"
-git push origin v0.1.1
+git tag -a v0.1.2 -m "omp-nous-portal-provider 0.1.2"
+git push origin v0.1.2
 ```
 
 The release workflow checks that the tagged commit is on `main` and that the tag matches `package.json`. It runs the full package check before publishing to npm with trusted publishing and provenance.
