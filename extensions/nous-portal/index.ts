@@ -11,6 +11,7 @@ import {
 	fetchModelCatalog,
 	getInferenceBaseUrl,
 } from "./models.ts";
+import { nousPortalUsageProvider } from "./usage.ts";
 
 export default function nousPortalProvider(pi: ExtensionAPI): void {
 	const baseUrl = getInferenceBaseUrl();
@@ -18,6 +19,7 @@ export default function nousPortalProvider(pi: ExtensionAPI): void {
 		baseUrl,
 		...(process.env.NOUS_API_KEY?.trim() ? { apiKey: "NOUS_API_KEY" } : {}),
 		api: "openai-completions",
+		usage: nousPortalUsageProvider,
 		fetchDynamicModels: (apiKey) =>
 			fetchModelCatalog(apiKey, baseUrl, { timeoutMs: DEFAULT_MODEL_DISCOVERY_TIMEOUT_MS }),
 		oauth: {

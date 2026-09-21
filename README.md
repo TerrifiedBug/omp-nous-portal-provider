@@ -38,8 +38,22 @@ You can create an inference key in [Nous Portal](https://portal.nousresearch.com
 | `NOUS_INFERENCE_BASE_URL` | OpenAI-compatible inference API | `https://inference-api.nousresearch.com/v1` |
 | `NOUS_CLIENT_ID` | OAuth device flow client ID | `hermes-cli` |
 | `NOUS_MIN_TOKEN_TTL_SECONDS` | OAuth refresh window in seconds | `120` |
+| `NOUS_USAGE_PROBE_MODEL` | Free model used for the `/usage` cold-start probe | `stepfun/step-3.7-flash:free` |
 
 Omp fetches the Portal `/models` allowlist through its model cache. The model picker shows the context limits, supported inputs, reasoning support, and Nous pricing returned by that endpoint.
+
+## Usage tracking
+
+Nous publishes no usage or credits endpoint — `/v1/credits`, `/v1/usage`, `/v1/me`, `/v1/account` and the `portal.` origin all return 404. Quota is only reported as `x-ratelimit-*` headers on `POST /v1/chat/completions`, so this provider registers a `usage` fetcher that reads them.
+
+Two sources feed `/usage`:
+
+- **Observed traffic.** `parseRateLimitHeaders` reads the headers omp already captures on every completion. Free, but only populated once a request has been made.
+- **Cold start.** `fetchUsage` issues one 1-token completion against a `:free` model so the panel has data before any real traffic. Free-tier models bill `cost: 0`.
+
+Only the rolling hour is reported. Nous also sends per-minute counters, but a 60-second window resets faster than the panel refreshes and only adds noise.
+
+The `usage` field on `ProviderConfig` requires **oh-my-pi 18.0.0 or newer**.
 
 ## Provider ID
 
