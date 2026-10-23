@@ -23,7 +23,8 @@ export default function nousPortalProvider(pi: ExtensionAPI): void {
 		oauth: {
 			name: PROVIDER_NAME,
 			login: loginNousPortal,
-			refreshToken: refreshNousPortalCredentials,
+			refreshToken: (credentials, signal?: AbortSignal) =>
+				refreshNousPortalCredentials(credentials, undefined, signal),
 			getApiKey: getNousPortalApiKey,
 		},
 	});

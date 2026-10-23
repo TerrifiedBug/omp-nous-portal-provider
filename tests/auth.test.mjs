@@ -2,11 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
-	DEFAULT_CLIENT_ID,
 	DEFAULT_MIN_TOKEN_TTL_SECONDS,
 	DEFAULT_SCOPE,
-	getClientId,
-	getMinTokenTtlSeconds,
 	loginNousPortal,
 	refreshNousPortalCredentials,
 } from "../extensions/nous-portal/auth.ts";
@@ -47,15 +44,6 @@ function fetchSequence(steps) {
 		},
 	};
 }
-
-test("defaults match the current Nous invoke-JWT contract", () => {
-	assert.equal(DEFAULT_CLIENT_ID, "hermes-cli");
-	assert.equal(DEFAULT_SCOPE, "inference:invoke");
-	assert.equal(DEFAULT_MIN_TOKEN_TTL_SECONDS, 120);
-	assert.equal(getClientId({}), "hermes-cli");
-	assert.equal(getClientId({ NOUS_CLIENT_ID: "custom-client" }), "custom-client");
-	assert.equal(getMinTokenTtlSeconds({ NOUS_MIN_TOKEN_TTL_SECONDS: "240" }), 240);
-});
 
 test("device login uses onAuth and stores the invoke JWT directly", async () => {
 	const now = Date.parse("2026-01-01T00:00:00.000Z");

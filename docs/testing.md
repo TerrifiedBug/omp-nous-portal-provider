@@ -16,6 +16,18 @@ npm run test:compat
 Without the required environment variables, every compatibility test is reported
 as skipped by `node:test`.
 
+## Broker integration
+
+Run the stock-OMP broker integration tests with Bun:
+
+```sh
+npm run test:broker
+```
+
+The suite uses a temporary vault and loopback token endpoints. It exercises expiry, single-use refresh-token rotation, redacted snapshots, restart persistence, built-in Codex and managed-MCP refresh, and cancellation of an in-flight Nous exchange. External provider requests are refused.
+
+`npm run check` runs the TypeScript check, Node tests, and broker suite. CI and release verification install Bun for this gate; no real credentials are required.
+
 ## Live compatibility environment
 
 Set these values to run the live Nous OpenAI-compatible endpoint checks:
@@ -78,6 +90,6 @@ The files under `tests/compat/` mirror omp's provider-compatibility categories:
 - `cross-provider-handoff.test.mjs`: handoff-like replay of prior assistant and
   tool-result messages.
 
-The live suite is dependency-free and talks directly to the provider's
-OpenAI-compatible `/chat/completions` endpoint. It validates the remote Nous
-contract without adding omp itself as a development dependency.
+The live suite talks directly to the provider's OpenAI-compatible
+`/chat/completions` endpoint without loading OMP. The separate broker suite
+above exercises the plugin's integration with OMP's stock SDK.

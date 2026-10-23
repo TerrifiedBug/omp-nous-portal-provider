@@ -328,6 +328,7 @@ export async function loginNousPortal(
 export async function refreshNousPortalCredentials(
 	credentials: OAuthCredentials,
 	options: NousOAuthOptions = {},
+	signal?: AbortSignal,
 ): Promise<OAuthCredentials> {
 	const current = credentials as NousOAuthCredentials;
 	if (!current.refresh?.trim()) throw new Error("Nous Portal refresh token is missing. Run /login nous-portal again.");
@@ -341,7 +342,7 @@ export async function refreshNousPortalCredentials(
 		config,
 		"/api/oauth/token",
 		{ grant_type: "refresh_token", client_id: config.clientId },
-		undefined,
+		signal,
 		{ "x-nous-refresh-token": current.refresh },
 	);
 	if (!response.ok) {
